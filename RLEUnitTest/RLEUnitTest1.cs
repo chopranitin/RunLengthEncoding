@@ -12,7 +12,6 @@ namespace RLEUnitTest
         {
             string result = RunLengthEncoder.Encode(input);
             Assert.Equal(output, result);
-
         }
     }
 }
