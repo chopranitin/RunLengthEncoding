@@ -10,29 +10,35 @@ namespace RunLengthEncoding
     {
         public static string Encode(string rlestring)
         {
-            if(string.IsNullOrEmpty(rlestring)) return "";
-            
-            var encoded = new StringBuilder();
-            int count = 1;
-            int stringlength = rlestring.Length;
-            for(int i = 1; i < stringlength; i++)
+            try
             {
-                if (rlestring[i] == rlestring[i - 1])
+                if (string.IsNullOrEmpty(rlestring)) return "";
+                var encoded = new StringBuilder();
+                int count = 1;
+                int stringlength = rlestring.Length;
+                for (int i = 1; i < stringlength; i++)
                 {
-                    count++;
+                    if (rlestring[i] == rlestring[i - 1])
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        encoded.Append(rlestring[i - 1]);
+                        encoded.Append(count);
+                        count = 1;
+                    }
                 }
-                else
-                {
-                    encoded.Append(rlestring[i-1]);
-                    encoded.Append(count);
-                    count = 1;
-                }               
+                encoded.Append(rlestring[stringlength - 1]);
+                encoded.Append(count);
+
+                return encoded.ToString();
             }
-            encoded.Append(rlestring[stringlength - 1]);
-            encoded.Append(count);
-
-            return encoded.ToString();
-
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in encoding function { e.ToString()}");
+                return "";
+            }
         }
     }
 }
